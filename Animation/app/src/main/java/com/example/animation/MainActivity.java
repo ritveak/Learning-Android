@@ -26,6 +26,14 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        //alpha is for transparency, hence helps in fading in and out....
+        // use other animations like translation, rotate etc
+        // use multiple animations by adding more after .
+        // eg ima.animate().rotate(1800).alpha(0).setDuration(3000);
+        // this rotates 5 times and fades out simultaneously
+        // if using decimals, add f in the end, else it wouldn't be accepted.
+        //use scale to increase or decrease size
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
