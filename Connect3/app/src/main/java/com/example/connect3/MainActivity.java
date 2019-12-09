@@ -49,11 +49,14 @@ public class MainActivity extends AppCompatActivity {
 
 
             }
-            if(!game && play==9)
-            {
-                Toast.makeText(this, "Game Draw", Toast.LENGTH_SHORT).show();
+            if(play==9) {
                 Button b = findViewById(R.id.reset);
                 b.setAlpha(1);
+
+                if (game) {
+                    Toast.makeText(this, "Game Draw", Toast.LENGTH_SHORT).show();
+                    play = 0;
+                }
             }
         }
     }
