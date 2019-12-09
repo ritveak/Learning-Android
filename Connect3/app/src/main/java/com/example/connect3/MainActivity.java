@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -18,10 +19,6 @@ public class MainActivity extends AppCompatActivity {
             ImageView counter = (ImageView) view;
             if (counter.getDrawable() == null) {
                 play++;
-                if(play==9)
-                {
-                    Toast.makeText(this, "Game Draw", Toast.LENGTH_SHORT).show();
-                }
                 counter.setTranslationY(-1500);
                 int t = Integer.parseInt(counter.getTag().toString());
 
@@ -37,18 +34,61 @@ public class MainActivity extends AppCompatActivity {
                 counter.animate().translationYBy(1500).setDuration(1000);
             }
             for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 9; j++) {
+
                     if (st[win[i][0]] == st[win[i][1]] && st[win[i][1]] == st[win[i][2]] && st[win[i][0]] != 2) {
                         if (st[win[i][0]] == 0)
                             Toast.makeText(this, "Red wins", Toast.LENGTH_SHORT).show();
                         else
                             Toast.makeText(this, "Yellow wins", Toast.LENGTH_SHORT).show();
                         game = false;
+                        Button b = findViewById(R.id.reset);
+                        b.setAlpha(1);
 
                     }
-                }
+                    else{
+                        if(play==9)
+                        {
+                            Toast.makeText(this, "Game Draw", Toast.LENGTH_SHORT).show();
+                            Button b = findViewById(R.id.reset);
+                            b.setAlpha(1);
+                            break;
+                        }
+                    }
+
             }
         }
+    }
+    public void reset(View view){
+        for(int i =0;i<9;i++)
+        {
+            st[i]=2;
+        }
+        game=true;
+        re=true;
+        play=0;
+        ImageView r = (ImageView)findViewById(R.id.red1);
+        r.setImageDrawable(null);
+        ImageView r2 = (ImageView)findViewById(R.id.red2);
+        r2.setImageDrawable(null);
+        ImageView r3= (ImageView)findViewById(R.id.red3);
+        r3.setImageDrawable(null);
+        ImageView r4 = (ImageView)findViewById(R.id.red4);
+        r4.setImageDrawable(null);
+        ImageView r5 = (ImageView)findViewById(R.id.red5);
+        r5.setImageDrawable(null);
+        ImageView r6 = (ImageView)findViewById(R.id.red6);
+        r6.setImageDrawable(null);
+        ImageView r7 = (ImageView)findViewById(R.id.red7);
+        r7.setImageDrawable(null);
+        ImageView r8 = (ImageView)findViewById(R.id.red8);
+        r8.setImageDrawable(null);
+        ImageView r9 = (ImageView)findViewById(R.id.red9);
+        r9.setImageDrawable(null);
+        Button b = findViewById(R.id.reset);
+        b.setAlpha(0);
+
+
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
