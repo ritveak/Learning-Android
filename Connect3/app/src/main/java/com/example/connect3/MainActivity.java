@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -12,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     boolean game=true;
     boolean re=true;
     int play=0;
-    int[][] win = {{0,1,2},{3,4,5},{6,7,8},{0,4,8},{2,4,6},{0,3,6},{1,4,7},{2,5,6}};
+    int[][] win = {{0,1,2},{3,4,5},{6,7,8},{0,4,8},{2,4,6},{0,3,6},{1,4,7},{2,5,8}};
     int[] st ={2,2,2,2,2,2,2,2,2};
     public void dropIn(View view){
         if(game) {
@@ -45,16 +46,14 @@ public class MainActivity extends AppCompatActivity {
                         b.setAlpha(1);
 
                     }
-                    else{
-                        if(play==9)
-                        {
-                            Toast.makeText(this, "Game Draw", Toast.LENGTH_SHORT).show();
-                            Button b = findViewById(R.id.reset);
-                            b.setAlpha(1);
-                            break;
-                        }
-                    }
 
+
+            }
+            if(!game && play==9)
+            {
+                Toast.makeText(this, "Game Draw", Toast.LENGTH_SHORT).show();
+                Button b = findViewById(R.id.reset);
+                b.setAlpha(1);
             }
         }
     }
@@ -84,6 +83,13 @@ public class MainActivity extends AppCompatActivity {
         r8.setImageDrawable(null);
         ImageView r9 = (ImageView)findViewById(R.id.red9);
         r9.setImageDrawable(null);
+
+//        GridLayout g = (GridLayout) findViewById(R.id.gridLayout);
+//        for(int i=0; i<g.getChildCount(); i++) {
+//            ImageView child = (ImageView)g.getChildAt(i);
+//            child.setImageDrawable(null);
+//            // do stuff with child view
+//        }
         Button b = findViewById(R.id.reset);
         b.setAlpha(0);
 
