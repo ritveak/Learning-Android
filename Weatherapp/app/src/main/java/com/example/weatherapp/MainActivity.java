@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
                 return res;
             }catch(Exception e)
             {
+                Toast.makeText(MainActivity.this, "Could not find the city", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
+
                 return null;
             }
 
@@ -85,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
 
             } catch (JSONException e) {
+
+                Toast.makeText(MainActivity.this, "Could not find the city", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
 
