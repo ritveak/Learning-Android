@@ -1,76 +1,94 @@
 package com.example.timerbasic;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.media.MediaPlayer;
-import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
+import android.os.Bundle;
 import android.util.Log;
-import android.widget.ImageView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    TextView timerTextView;
+    SeekBar timerSeekBar;
+    Boolean counterIsActive = false;
+    Button goButton;
+    CountDownTimer countDownTimer;
+
+    public void resetTimer() {
+        timerTextView.setText("0:30");
+        timerSeekBar.setProgress(30);
+        timerSeekBar.setEnabled(true);
+        countDownTimer.cancel();
+        goButton.setText("GO!");
+        counterIsActive = false;
+    }
+
+    public void click(View view) {
+
+        if (counterIsActive) {
+
+            resetTimer();
+
+        } else {
+
+            counterIsActive = true;
+            timerSeekBar.setEnabled(false);
+            goButton.setText("STOP!");
+
+            countDownTimer = new CountDownTimer(timerSeekBar.getProgress() * 1000 + 100, 1000) {
+
+                @Override
+                public void onTick(long l) {
+                    updateTimer((int) l / 1000);
+                }
+
+                @Override
+                public void onFinish() {
+                    MediaPlayer mplayer = MediaPlayer.create(getApplicationContext(), R.raw.horn);
+                    mplayer.start();
+                    resetTimer();
+                }
+            }.start();
+        }
+    }
+
+    public void updateTimer(int secondsLeft) {
+        int minutes = secondsLeft / 60;
+        int seconds = secondsLeft - (minutes * 60);
+
+        String secondString = Integer.toString(seconds);
+
+        if (seconds <= 9) {
+            secondString = "0" + secondString;
+        }
+
+        timerTextView.setText(Integer.toString(minutes) + ":" + secondString);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Basic one
-//        final Handler h = new Handler();
-//        Runnable r = new Runnable() {
-//            @Override
-//            public void run() {
-//                Log.i("Do Something", "A sec has passed");
-//                h.postDelayed(this,1000);
-//            }
-//        };
-//        h.post(r);
 
-        //Better with defined time to stop!
+        timerSeekBar = findViewById(R.id.seekBar);
+        timerTextView = findViewById(R.id.timer);
+        goButton = findViewById(R.id.button);
 
-        SeekBar sb = findViewById(R.id.seekBar);
-        sb.setMax(10000);
-        sb.setProgress(1000);
-        final TextView t = findViewById(R.id.timer);
-        final ImageView w = findViewById(R.id.whole);
-        final ImageView c = findViewById(R.id.crack);
-        final TextView up= findViewById(R.id.up);
-        final MediaPlayer med = MediaPlayer.create(this,R.raw.horn);
-        sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        timerSeekBar.setMax(600);
+        timerSeekBar.setProgress(30);
+
+        timerSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                w.setAlpha(1);
-                c.setAlpha(0);
-                up.setAlpha(0);
-                t.setText(String.valueOf(progress/1000));
-                new CountDownTimer(progress,1000){
-                    public void onTick(long mili){
-                        Log.i("sec left",String.valueOf(mili/1000));
-                        int tt =(int)mili/1000;
-
-                        t.setText(String.valueOf(tt));
-
-                    }
-                    public void  onFinish(){
-                        Log.i("we are done", "Time up");
-                        t.setText(String.valueOf(0));
-                        w.setAlpha(0);
-                        c.setAlpha(1);
-                        up.setAlpha(1);
-                        med.start();
-
-
-
-                    }
-                }.start();
-
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                updateTimer(i);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
 
             }
 
@@ -79,18 +97,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-//        new CountDownTimer(10000,1000){
-//            public void onTick(long mili){
-//                Log.i("sec left",String.valueOf(mili/1000));
-//
-//            }
-//            public void  onFinish(){
-//                Log.i("we are done", "Time up");
-//            }
-//        }.start();
-
     }
 }
