@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
         Log.i("info",usrname.getText().toString());
         intent.putExtra("nme",usrname.getText().toString());
         startActivity(intent);
-
     }
 
     @Override
