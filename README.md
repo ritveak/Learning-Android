@@ -3,4 +3,4 @@
  
  Just a place to come back to for brushing up basics.
  
- Refer Key points doc to look for tips and tricks that I confronted and resolved, might come in handy for beginners.
+ Refer doc to look for tips and tricks that I confronted and resolved, might come in handy for beginners.
