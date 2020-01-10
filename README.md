@@ -3,4 +3,4 @@
  
  Just a place to come back to for brushing up basics.
  
- Refer doc to look for tips, tricks and issues that I confronted and resolved, might come in handy for beginners.
+ Codes can be difficult to understand, so refer doc to look for tips, tricks and issues that I confronted and resolved, might come in handy for beginners.
